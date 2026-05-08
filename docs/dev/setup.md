@@ -44,7 +44,7 @@
 - https://semver.npmjs.com/
 - https://docs.npmjs.com/about-semantic-versioning
 
-# Layout
+# Main Layout
 
 ## Navbar
 
@@ -56,4 +56,10 @@
 
 ## Dark Mode Toggle
 
-# Route
+# Routes
+
+- [[routes]]
+
+## Error Page
+
+## Route Guard

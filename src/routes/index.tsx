@@ -1,13 +1,13 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/')({
-  component: Index,
+  // component: RouteComponent,
+  beforeLoad: () => {
+    throw redirect({ to: '/articles' });
+  },
 });
 
-function Index() {
-  return (
-    <div className="p-2">
-      <h3>Welcome Home!</h3>
-    </div>
-  );
-}
+// function RouteComponent() {
+//   return <Navigate to="/article" />;
+//   return <div>Hello "/"!</div>;
+// }
