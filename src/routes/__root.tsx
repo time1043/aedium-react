@@ -1,18 +1,24 @@
-import { createRootRoute, Link, Outlet } from '@tanstack/react-router';
+import { createRootRoute, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
+
+import Navbar from '@/components/Navbar';
+import Sidebar from '@/components/Sidebar';
 
 const RootLayout = () => (
   <>
-    <div className="p-2 flex gap-2">
-      <Link to="/" className="[&.active]:font-bold">
-        Home
-      </Link>{' '}
-      <Link to="/about" className="[&.active]:font-bold">
-        About
-      </Link>
+    <div className="drawer lg:drawer-open">
+      <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+      <div className="drawer-content">
+        <Navbar />
+        {/* Page content here */}
+        <div className="p-4">
+          <Outlet />
+        </div>
+      </div>
+
+      <Sidebar />
     </div>
-    <hr />
-    <Outlet />
+
     <TanStackRouterDevtools />
   </>
 );

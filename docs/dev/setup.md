@@ -1,4 +1,4 @@
-# Toolchain
+# Toolchain Setup
 
 ## Vite Alias
 
@@ -6,13 +6,13 @@
 
 - https://oxc.rs/docs/guide/usage/formatter/quickstart.html
 
-# Router
+# Router Setup
 
 ## Tanstack Router
 
 - https://tanstack.com/router/latest/docs/installation/manual
 
-# UI
+# UI Setup
 
 ## Tailwind CSS
 
@@ -43,3 +43,17 @@
 
 - https://semver.npmjs.com/
 - https://docs.npmjs.com/about-semantic-versioning
+
+# Layout
+
+## Navbar
+
+- https://daisyui.com/components/navbar/#responsive-collapse-on-small-screen-full-content-on-large-screen
+
+## Sidebar
+
+- https://daisyui.com/components/drawer/#responsive-collapsible-icon-only-drawer-sidebar-using-is-drawer-close-and-is-drawer-open
+
+## Dark Mode Toggle
+
+# Route
