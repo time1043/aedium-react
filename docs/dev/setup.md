@@ -44,6 +44,11 @@
 - https://semver.npmjs.com/
 - https://docs.npmjs.com/about-semantic-versioning
 
+## Phosphor Icon + Tooltip
+
+- https://phosphoricons.com/
+- https://daisyui.com/components/tooltip/
+
 # Main Layout
 
 ## Navbar
@@ -59,6 +64,22 @@
 # Routes
 
 - [[routes]]
+
+```shell
+routes
+├── _auth.tsx  # layout
+├── _auth
+│   ├── login.tsx
+│   └── register.tsx
+├── _main.tsx  # layout
+├── _main
+│   ├── articles
+│   │   └── index.tsx
+│   └── me
+│       └── profile.tsx
+├── __root.tsx  # root layout
+└── index.tsx  # /
+```
 
 ## Error Page
 
