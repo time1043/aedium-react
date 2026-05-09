@@ -11,10 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as MainRouteImport } from './routes/_main'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthRegisterRouteImport } from './routes/_auth/register'
-import { Route as AuthLoginRouteImport } from './routes/_auth/login'
+import { Route as AuthPathnameRouteImport } from './routes/auth/$pathname'
 import { Route as MainArticlesIndexRouteImport } from './routes/_main/articles/index'
 import { Route as MainMeProfileRouteImport } from './routes/_main/me/profile'
+import { Route as MainMePathnameRouteImport } from './routes/_main/me/$pathname'
 
 const MainRoute = MainRouteImport.update({
   id: '/_main',
@@ -25,14 +25,9 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthRegisterRoute = AuthRegisterRouteImport.update({
-  id: '/_auth/register',
-  path: '/register',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthLoginRoute = AuthLoginRouteImport.update({
-  id: '/_auth/login',
-  path: '/login',
+const AuthPathnameRoute = AuthPathnameRouteImport.update({
+  id: '/auth/$pathname',
+  path: '/auth/$pathname',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MainArticlesIndexRoute = MainArticlesIndexRouteImport.update({
@@ -45,18 +40,23 @@ const MainMeProfileRoute = MainMeProfileRouteImport.update({
   path: '/me/profile',
   getParentRoute: () => MainRoute,
 } as any)
+const MainMePathnameRoute = MainMePathnameRouteImport.update({
+  id: '/me/$pathname',
+  path: '/me/$pathname',
+  getParentRoute: () => MainRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/login': typeof AuthLoginRoute
-  '/register': typeof AuthRegisterRoute
+  '/auth/$pathname': typeof AuthPathnameRoute
+  '/me/$pathname': typeof MainMePathnameRoute
   '/me/profile': typeof MainMeProfileRoute
   '/articles/': typeof MainArticlesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/login': typeof AuthLoginRoute
-  '/register': typeof AuthRegisterRoute
+  '/auth/$pathname': typeof AuthPathnameRoute
+  '/me/$pathname': typeof MainMePathnameRoute
   '/me/profile': typeof MainMeProfileRoute
   '/articles': typeof MainArticlesIndexRoute
 }
@@ -64,22 +64,27 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_main': typeof MainRouteWithChildren
-  '/_auth/login': typeof AuthLoginRoute
-  '/_auth/register': typeof AuthRegisterRoute
+  '/auth/$pathname': typeof AuthPathnameRoute
+  '/_main/me/$pathname': typeof MainMePathnameRoute
   '/_main/me/profile': typeof MainMeProfileRoute
   '/_main/articles/': typeof MainArticlesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/register' | '/me/profile' | '/articles/'
+  fullPaths:
+    | '/'
+    | '/auth/$pathname'
+    | '/me/$pathname'
+    | '/me/profile'
+    | '/articles/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/register' | '/me/profile' | '/articles'
+  to: '/' | '/auth/$pathname' | '/me/$pathname' | '/me/profile' | '/articles'
   id:
     | '__root__'
     | '/'
     | '/_main'
-    | '/_auth/login'
-    | '/_auth/register'
+    | '/auth/$pathname'
+    | '/_main/me/$pathname'
     | '/_main/me/profile'
     | '/_main/articles/'
   fileRoutesById: FileRoutesById
@@ -87,8 +92,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   MainRoute: typeof MainRouteWithChildren
-  AuthLoginRoute: typeof AuthLoginRoute
-  AuthRegisterRoute: typeof AuthRegisterRoute
+  AuthPathnameRoute: typeof AuthPathnameRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -107,18 +111,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_auth/register': {
-      id: '/_auth/register'
-      path: '/register'
-      fullPath: '/register'
-      preLoaderRoute: typeof AuthRegisterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_auth/login': {
-      id: '/_auth/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof AuthLoginRouteImport
+    '/auth/$pathname': {
+      id: '/auth/$pathname'
+      path: '/auth/$pathname'
+      fullPath: '/auth/$pathname'
+      preLoaderRoute: typeof AuthPathnameRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_main/articles/': {
@@ -135,15 +132,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MainMeProfileRouteImport
       parentRoute: typeof MainRoute
     }
+    '/_main/me/$pathname': {
+      id: '/_main/me/$pathname'
+      path: '/me/$pathname'
+      fullPath: '/me/$pathname'
+      preLoaderRoute: typeof MainMePathnameRouteImport
+      parentRoute: typeof MainRoute
+    }
   }
 }
 
 interface MainRouteChildren {
+  MainMePathnameRoute: typeof MainMePathnameRoute
   MainMeProfileRoute: typeof MainMeProfileRoute
   MainArticlesIndexRoute: typeof MainArticlesIndexRoute
 }
 
 const MainRouteChildren: MainRouteChildren = {
+  MainMePathnameRoute: MainMePathnameRoute,
   MainMeProfileRoute: MainMeProfileRoute,
   MainArticlesIndexRoute: MainArticlesIndexRoute,
 }
@@ -153,8 +159,7 @@ const MainRouteWithChildren = MainRoute._addFileChildren(MainRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   MainRoute: MainRouteWithChildren,
-  AuthLoginRoute: AuthLoginRoute,
-  AuthRegisterRoute: AuthRegisterRoute,
+  AuthPathnameRoute: AuthPathnameRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
