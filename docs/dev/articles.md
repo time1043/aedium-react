@@ -4,4 +4,5 @@
 
 # Articles Editor
 
-- https://www.blocknotejs.org/
+- https://www.blocknotejs.org/docs/getting-started
+- https://www.blocknotejs.org/docs/getting-started/editor-setup
