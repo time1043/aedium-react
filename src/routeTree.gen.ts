@@ -15,6 +15,7 @@ import { Route as AuthPathnameRouteImport } from './routes/auth/$pathname'
 import { Route as MainArticlesIndexRouteImport } from './routes/_main/articles/index'
 import { Route as MainMeProfileRouteImport } from './routes/_main/me/profile'
 import { Route as MainMePathnameRouteImport } from './routes/_main/me/$pathname'
+import { Route as MainArticlesDraftRouteImport } from './routes/_main/articles/draft'
 
 const MainRoute = MainRouteImport.update({
   id: '/_main',
@@ -45,10 +46,16 @@ const MainMePathnameRoute = MainMePathnameRouteImport.update({
   path: '/me/$pathname',
   getParentRoute: () => MainRoute,
 } as any)
+const MainArticlesDraftRoute = MainArticlesDraftRouteImport.update({
+  id: '/articles/draft',
+  path: '/articles/draft',
+  getParentRoute: () => MainRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth/$pathname': typeof AuthPathnameRoute
+  '/articles/draft': typeof MainArticlesDraftRoute
   '/me/$pathname': typeof MainMePathnameRoute
   '/me/profile': typeof MainMeProfileRoute
   '/articles/': typeof MainArticlesIndexRoute
@@ -56,6 +63,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth/$pathname': typeof AuthPathnameRoute
+  '/articles/draft': typeof MainArticlesDraftRoute
   '/me/$pathname': typeof MainMePathnameRoute
   '/me/profile': typeof MainMeProfileRoute
   '/articles': typeof MainArticlesIndexRoute
@@ -65,6 +73,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_main': typeof MainRouteWithChildren
   '/auth/$pathname': typeof AuthPathnameRoute
+  '/_main/articles/draft': typeof MainArticlesDraftRoute
   '/_main/me/$pathname': typeof MainMePathnameRoute
   '/_main/me/profile': typeof MainMeProfileRoute
   '/_main/articles/': typeof MainArticlesIndexRoute
@@ -74,16 +83,24 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth/$pathname'
+    | '/articles/draft'
     | '/me/$pathname'
     | '/me/profile'
     | '/articles/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth/$pathname' | '/me/$pathname' | '/me/profile' | '/articles'
+  to:
+    | '/'
+    | '/auth/$pathname'
+    | '/articles/draft'
+    | '/me/$pathname'
+    | '/me/profile'
+    | '/articles'
   id:
     | '__root__'
     | '/'
     | '/_main'
     | '/auth/$pathname'
+    | '/_main/articles/draft'
     | '/_main/me/$pathname'
     | '/_main/me/profile'
     | '/_main/articles/'
@@ -139,16 +156,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MainMePathnameRouteImport
       parentRoute: typeof MainRoute
     }
+    '/_main/articles/draft': {
+      id: '/_main/articles/draft'
+      path: '/articles/draft'
+      fullPath: '/articles/draft'
+      preLoaderRoute: typeof MainArticlesDraftRouteImport
+      parentRoute: typeof MainRoute
+    }
   }
 }
 
 interface MainRouteChildren {
+  MainArticlesDraftRoute: typeof MainArticlesDraftRoute
   MainMePathnameRoute: typeof MainMePathnameRoute
   MainMeProfileRoute: typeof MainMeProfileRoute
   MainArticlesIndexRoute: typeof MainArticlesIndexRoute
 }
 
 const MainRouteChildren: MainRouteChildren = {
+  MainArticlesDraftRoute: MainArticlesDraftRoute,
   MainMePathnameRoute: MainMePathnameRoute,
   MainMeProfileRoute: MainMeProfileRoute,
   MainArticlesIndexRoute: MainArticlesIndexRoute,

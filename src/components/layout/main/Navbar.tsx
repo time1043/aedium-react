@@ -26,7 +26,10 @@ export default function Navbar() {
           Login
         </button>
 
-        <button className="btn hidden btn-ghost btn-sm lg:inline-flex lg:btn-md">
+        <button
+          className="btn hidden btn-outline btn-sm btn-primary lg:inline-flex lg:btn-md"
+          onClick={() => navigate({ to: '/articles/draft' })}
+        >
           <NotePencilIcon size={24} weight="thin" />
           Write
         </button>
