@@ -1,6 +1,8 @@
 import { AuthView } from '@neondatabase/neon-js/auth/react';
 import { createFileRoute } from '@tanstack/react-router';
 
+import { Route as IndexRoute } from '../index';
+
 export const Route = createFileRoute('/auth/$pathname')({
   component: RouteComponent,
 });
@@ -14,7 +16,11 @@ function RouteComponent() {
       <button className="btn text-xl btn-ghost" onClick={() => navigate({ to: '/' })}>
         Aedium
       </button>
-      <AuthView pathname={pathname} className="neon-auth-patch" />
+      <AuthView
+        pathname={pathname}
+        className="neon-auth-patch"
+        redirectTo={pathname === 'sign-out' ? IndexRoute.to : undefined}
+      />
     </div>
   );
 }
